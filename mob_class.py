@@ -49,7 +49,7 @@ class player(mob):
         self.rect.y = 200
 
     def update(self):
-        self.rect.x += 1
+        self.rect.x += 2.5
         if self.rect.x > 320:
             self.rect.x = -24
 
