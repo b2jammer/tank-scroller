@@ -1,8 +1,8 @@
 import pygame,sys
 from pygame.locals import *
-import mob_class
+import mob_class, settings
 
-DISPLAYSURF = pygame.display.set_mode((320,240))
+DISPLAYSURF = pygame.display.set_mode((320,240),RESIZABLE)
 
 class game_engine(object):
     def __init__(self,size=(320,240),title="Game Engine"):
@@ -23,7 +23,7 @@ class game_engine(object):
     def display(self):
         return self.SURF
 
-    def tick(self,fps=60):
+    def tick(self,fps=settings.FPS):
         self.SURF.fill(self.BGCOLOR)
         ENGINE.sprites().update()
         ENGINE.sprites().draw(self.SURF)
@@ -38,13 +38,17 @@ CROSSHAIR = pygame.image.load('crosshair.png').convert()
 PLAYER = mob_class.player(3)
 ENGINE.sprites().add(PLAYER)
 
+PLAYER2 = mob_class.player(3)
+ENGINE.sprites().add(PLAYER2)
+PLAYER2.rect.y = 0
+
 WINDOWSIZE = pygame.display.get_surface().get_size()
 
 # Draw surface onto display, maintaining aspect ratio while filling as much
 # screen real estate as possible.
 def draw_screen(surface,display):
     global WINDOWSIZE
-    display.fill((0,0,0))
+    display.fill((10,10,20))
     s_w = surface.get_width()
     s_h = surface.get_height()
     d_w = WINDOWSIZE[0]
@@ -53,14 +57,17 @@ def draw_screen(surface,display):
         s_a = s_w/s_h
         new_h = d_h
         new_w = d_h * s_a
-        new_x = (d_w - s_w) // 2
+        new_x = (d_w - new_w) // 2
         new_y = 0
     else:# Display taller than surface.
         s_a = s_h/s_w
         new_w = d_w
         new_h = d_w * s_a
-        new_y = (d_h - s_h) // 2
+        new_y = (d_h - new_h) // 2
         new_x = 0
+##    print("Display:",(d_w,d_h))
+##    print("Surface:",(new_w,new_h,new_y,new_x))
+##    print('--------------')
     new_surf = pygame.transform.scale(surface,(int(new_w),int(new_h)))
     display.blit(new_surf,(int(new_x),int(new_y)))
 
@@ -73,6 +80,7 @@ def main():
                 sys.exit()
             if event.type == pygame.VIDEORESIZE:
                WINDOWSIZE = event.size
+               DISPLAYSURF = pygame.display.set_mode(WINDOWSIZE,RESIZABLE)
         ENGINE.tick()
         draw_screen(ENGINE.display(),pygame.display.get_surface())
         pygame.display.update()
