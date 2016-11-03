@@ -22,14 +22,23 @@ class tile_map(object):
         else:
             return 'air'
 
-    def width(self):
+    def x_bounds(self):
         poslist = list(self.tiles.keys())
         xlist = [item[0] for item in poslist]
-        return max(xlist)-min(xlist)
-    def width(self):
+        return (min(xlist),max(xlist))
+    
+    def y_bounds(self):
         poslist = list(self.tiles.keys())
         ylist = [item[1] for item in poslist]
-        return max(ylist)-min(ylist)
+        return (min(ylist),max(ylist))
+
+    def width(self):
+        xb = self.x_bounds()
+        return xb[1]-xb[0]
+
+    def height(self):
+        yb = self.y_bounds()
+        return yb[1]-yb[0]
     
     # Draw a portion of the tile map from one corner to the other.
     def draw_map(self,top_left,low_right):
