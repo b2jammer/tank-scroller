@@ -16,4 +16,21 @@ class tile_map(object):
     def __init__(self,tile_dict):
         self.tiles = tile_dict
         
+    def get_tile(self,pos):
+        if pos in tile_dict:
+            return tile_dict[pos]
+        else:
+            return 'air'
+
+    def width(self):
+        poslist = list(self.tiles.keys())
+        xlist = [item[0] for item in poslist]
+        return max(xlist)-min(xlist)
+    def width(self):
+        poslist = list(self.tiles.keys())
+        ylist = [item[1] for item in poslist]
+        return max(ylist)-min(ylist)
     
+    # Draw a portion of the tile map from one corner to the other.
+    def draw_map(self,top_left,low_right):
+        
