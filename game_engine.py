@@ -13,6 +13,12 @@ class game_engine(object):
         self.BGCOLOR = (0,0,0)
         self.SURF.fill(self.BGCOLOR)
 
+        self.key = []
+        # Keys that were pressed this frame.
+        self.keydown = []
+        # Keys that were released this frame.
+        self.keyup = []
+
         self.GAME_CLOCK = pygame.time.Clock()
 
         self.SPRITES = pygame.sprite.Group()
@@ -23,10 +29,32 @@ class game_engine(object):
     def display(self):
         return self.SURF
 
+    def add_sprite(self,sprite):
+        sprite.set_engine(self)
+        self.sprites().add(sprite)
+
     def tick(self,fps=settings.FPS):
+        global DISPLAYSURF,WINDOWSIZE
         self.SURF.fill(self.BGCOLOR)
-        ENGINE.sprites().update()
-        ENGINE.sprites().draw(self.SURF)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.VIDEORESIZE:
+                WINDOWSIZE = event.size
+                DISPLAYSURF = pygame.display.set_mode(WINDOWSIZE,RESIZABLE)
+            elif event.type == KEYDOWN:
+                self.key.append(event.key)
+                self.keydown.append(event.key)
+            elif event.type == KEYUP:
+                self.key.remove(event.key)
+                self.keyup.append(event.key)
+            for sprite in self.sprites():
+                sprite.on_event(event)
+        self.sprites().update()
+        self.sprites().draw(self.SURF)
+        self.keydown = []
+        self.keyup = []
         self.GAME_CLOCK.tick(fps)
 
     def sprites(self):
@@ -35,12 +63,7 @@ class game_engine(object):
 ENGINE = game_engine((320,240),"The Little Voxel that Could")
 
 CROSSHAIR = pygame.image.load('crosshair.png').convert()
-PLAYER = mob_class.player(3)
-ENGINE.sprites().add(PLAYER)
-
-PLAYER2 = mob_class.player(3)
-ENGINE.sprites().add(PLAYER2)
-PLAYER2.rect.y = 0
+PLAYER = mob_class.player(ENGINE,3)
 
 WINDOWSIZE = pygame.display.get_surface().get_size()
 
@@ -74,13 +97,6 @@ def draw_screen(surface,display):
 def main():
     global WINDOWSIZE
     while True:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.VIDEORESIZE:
-               WINDOWSIZE = event.size
-               DISPLAYSURF = pygame.display.set_mode(WINDOWSIZE,RESIZABLE)
         ENGINE.tick()
         draw_screen(ENGINE.display(),pygame.display.get_surface())
         pygame.display.update()
