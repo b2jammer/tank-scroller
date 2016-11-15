@@ -1,17 +1,8 @@
 import pygame,sys
 from pygame.locals import *
 import settings
-
-class engine_sprite(pygame.sprite.Sprite):
-    def __init__(self,engine):
-        pygame.sprite.Sprite.__init__(self)
-        self.move_x = 0
-        self.move_y = 0
-        self.ENGINE = engine
-        self.ENGINE.sprites().add(self)
-
-    def on_event(self,event):
-        pass
+from bullet_class import Bullet
+from esprite_class import engine_sprite
 
 class mob(engine_sprite):
     def __init__(self,engine,health=1):
@@ -27,11 +18,10 @@ class mob(engine_sprite):
 
     # Call this method every frame.
     def update(self):
+        engine_sprite.update(self)
         self.check_health()
         if self.mercy_frames > 0:
             self.mercy_frames -= 1
-        self.rect.x += self.move_x
-        self.rect.y += self.move_y
 
     # Return true if still alive.
     def check_health(self):
@@ -70,14 +60,28 @@ class player(mob):
         self.x_speed = 2
         self.y_speed = 2
 
+        self.bullet_timer = 0
+
     def update(self):
         mob.update(self)
+
+        if (self.bullet_timer > 0):
+            self.bullet_timer -= 1
+        
         if K_LEFT in self.ENGINE.key:
             self.move_x = -self.x_speed
         elif K_RIGHT in self.ENGINE.key:
             self.move_x = self.x_speed
         else:
             self.move_x = 0
+            
+        if K_SPACE in self.ENGINE.key:
+            if self.bullet_timer <= 0:
+                new_bullet = Bullet(self.ENGINE,(self.rect.x+self.rect.width,
+                                             self.rect.y+self.rect.height//2),
+                                (1,0),1)
+                self.bullet_timer = 10
+            
         if K_UP in self.ENGINE.key:
             self.move_y = -self.y_speed
         elif K_DOWN in self.ENGINE.key:
