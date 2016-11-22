@@ -53,6 +53,9 @@ class game_engine(object):
                 sprite.on_event(event)
         self.sprites().update()
         self.sprites().draw(self.SURF)
+        for sprite in self.sprites():
+            #if sprite.draw_hitbox:
+            pygame.draw.rect(self.SURF,(255,255,255),sprite.rect,1)
         self.keydown = []
         self.keyup = []
         self.GAME_CLOCK.tick(fps)

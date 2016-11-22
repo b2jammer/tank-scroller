@@ -7,6 +7,7 @@ class engine_sprite(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.move_x = 0
         self.move_y = 0
+        self.draw_hitbox = False
         self.ENGINE = engine
         self.ENGINE.sprites().add(self)
 

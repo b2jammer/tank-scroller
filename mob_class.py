@@ -44,6 +44,11 @@ class mob(engine_sprite):
     def on_death(self):
         pass
 
+class meteor(mob):
+    def __init__(self,engine,health=1):
+        mob.__init__(self,engine,health)
+        self.image = pygame.image.load('meteor.png').convert()
+
 class player(mob):
     #Dict of vehicle names and corresponding sprites.
     vehicles = {'tank':pygame.image.load(settings.PLAYER_TANK_IMAGE),
@@ -51,6 +56,7 @@ class player(mob):
     def __init__(self,engine,health=3):
         mob.__init__(self,engine,health)
         self.mercy_max = 90
+        self.draw_hitbox = True
         self.vehicle_mode = 'plane'
         self.image = player.vehicles[self.vehicle_mode]
         self.rect = self.image.get_rect()
