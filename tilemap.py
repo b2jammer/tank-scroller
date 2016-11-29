@@ -10,8 +10,7 @@ TILENAMES = ('air','concrete')
 VARIANTS = {'air':None,'concrete':('0.png','1.png')}
 
 # A map of tiles. Use this for a level.
-# A level will be stored as a dictionary of tuples to tilename strings. When
-# retreiving a 
+# A level will be stored as a dictionary of tuples to tilename strings.
 class tile_map(object):
     def __init__(self,tile_dict):
         self.tiles = tile_dict

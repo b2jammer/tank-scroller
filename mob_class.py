@@ -81,7 +81,7 @@ class player(mob):
         else:
             self.move_x = 0
             
-        if K_SPACE in self.ENGINE.key:
+        if pygame.mouse.get_pressed()[0]:
             if self.bullet_timer <= 0:
                 new_bullet = Bullet(self.ENGINE,(self.rect.x+self.rect.width,
                                              self.rect.y+self.rect.height//2),

@@ -63,7 +63,7 @@ class game_engine(object):
     def sprites(self):
         return self.SPRITES
 
-ENGINE = game_engine((640,480),"The Little Voxel that Could")
+ENGINE = game_engine((1280,720),"The Little Voxel that Could")
 
 CROSSHAIR = pygame.image.load('crosshair.png').convert()
 PLAYER = mob_class.player(ENGINE,3)
