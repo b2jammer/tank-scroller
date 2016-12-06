@@ -2,6 +2,7 @@ import pygame,sys
 from pygame.locals import *
 import settings
 from bullet_class import Bullet
+import esprite_class
 from esprite_class import engine_sprite
 
 class mob(engine_sprite):
@@ -32,10 +33,12 @@ class mob(engine_sprite):
             self.on_death()
         return not self.dead
 
-    def take_damage(damage):
+    def take_damage(self,damage):
         self.health -= damage
         if self.check_health():
             self.on_survive()
+        else:
+            self.kill()
 
     # Call this method if mob is still alive after taking damage.
     def on_survive(self):
@@ -48,6 +51,17 @@ class meteor(mob):
     def __init__(self,engine,health=1):
         mob.__init__(self,engine,health)
         self.image = pygame.image.load('meteor.png').convert()
+        self.rect = self.image.get_rect()
+        self.hitboxes.append(esprite_class.hitbox(self.rect, (0, 255, 0), self))
+        self.move_x = -5
+    def update(self):
+        super().update()
+        if self.rect.x < -10 or self.rect.y > 730 or self.rect.y < -10:
+            self.kill()
+    def on_collision(self,other,hitbox,otherbox):
+        if other is Bullet:
+            self.take_damage(other.damage)
+
 
 class player(mob):
     #Dict of vehicle names and corresponding sprites.
@@ -67,6 +81,8 @@ class player(mob):
         self.y_speed = 2
 
         self.bullet_timer = 0
+
+        self.hitboxes.append(esprite_class.hitbox(self.rect, (0, 255, 0), self))
 
     def update(self):
         mob.update(self)

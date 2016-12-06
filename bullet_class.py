@@ -1,6 +1,7 @@
 import pygame,sys
 from pygame.locals import *
 import settings
+import esprite_class
 from esprite_class import engine_sprite
 from vectors import Vector2D
 
@@ -15,3 +16,9 @@ class Bullet(engine_sprite):
         self.image = pygame.transform.scale(bullet_image,(12,12))
         self.rect = self.image.get_rect()
         self.rect.x,self.rect.y = pos
+        self.hitboxes.append(esprite_class.hitbox(self.rect,(0,255,0),self))
+
+    def update(self):
+        super().update()
+        if self.rect.x > 1290 or self.rect.x < -10 or self.rect.y > 730 or self.rect.y < -10:
+            self.kill()

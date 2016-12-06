@@ -8,13 +8,22 @@ class engine_sprite(pygame.sprite.Sprite):
         self.move_x = 0
         self.move_y = 0
         self.draw_hitbox = False
+        self.hitboxes = []
         self.ENGINE = engine
         self.ENGINE.sprites().add(self)
 
     def update(self):
         self.rect.x += self.move_x
         self.rect.y += self.move_y
+
+    def on_collision(self,other,hitbox,otherbox):
+        pass
     
     def on_event(self,event):
         pass
 
+class hitbox(object):
+    def __init__(self,rect,color,esprite):
+        self.owner = esprite
+        self.rect = rect
+        self.color = color

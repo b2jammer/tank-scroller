@@ -1,6 +1,7 @@
 import pygame,sys
 from pygame.locals import *
 import mob_class, settings
+import random
 
 DISPLAYSURF = pygame.display.set_mode((320,240),RESIZABLE)
 
@@ -51,6 +52,13 @@ class game_engine(object):
                 self.keyup.append(event.key)
             for sprite in self.sprites():
                 sprite.on_event(event)
+        for sprite in self.sprites():
+            for sprite2 in self.sprites():
+                if not(sprite is sprite2):#Make sure we're comparing two different objects!
+                    for i in range(len(sprite.hitboxes)):
+                        for j in range(len(sprite.hitboxes)):
+                            if sprite.hitboxes[i].rect.colliderect(sprite2.hitboxes[j].rect):
+                                sprite.on_collision(sprite2,sprite.hitboxes[i],sprite2.hitboxes[j])
         self.sprites().update()
         self.sprites().draw(self.SURF)
         for sprite in self.sprites():
@@ -67,6 +75,9 @@ ENGINE = game_engine((1280,720),"The Little Voxel that Could")
 
 CROSSHAIR = pygame.image.load('crosshair.png').convert()
 PLAYER = mob_class.player(ENGINE,3)
+
+spawntimer = 45
+spawntimermax = 45
 
 WINDOWSIZE = pygame.display.get_surface().get_size()
 
@@ -98,9 +109,15 @@ def draw_screen(surface,display):
     display.blit(new_surf,(int(new_x),int(new_y)))
 
 def main():
-    global WINDOWSIZE
+    global WINDOWSIZE,spawntimer,spawntimermax
     while True:
         ENGINE.tick()
+        spawntimer -= 1
+        if spawntimer == 0:
+            spawntimer = spawntimermax
+            newmeteor = mob_class.meteor(ENGINE)
+            newmeteor.rect.x = 1290
+            newmeteor.rect.y = random.randint(10,710)
         draw_screen(ENGINE.display(),pygame.display.get_surface())
         pygame.display.update()
 
