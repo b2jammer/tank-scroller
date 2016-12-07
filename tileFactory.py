@@ -51,8 +51,9 @@ class tileFactory(object):
         self.pos = (DRAWDISTANCE, int(self.row * TILESIZE))
 
         self.TILESURF = pygame.Surface((TILESIZE, TILESIZE))
-        self.TILESURF = pygame.image.load("tile.jpg")
+        self.TILESURF = pygame.image.load("tile.png")
         self.TILESURF = pygame.transform.scale(self.TILESURF, (TILESIZE, TILESIZE))
+        TILESURF = self.TILESURF
 
     def pos_change(self):
 
