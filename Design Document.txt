@@ -65,7 +65,7 @@ Tank Form
 HP: 100
 Bullet Damage: 10
 Bullet Speed: 1200
-Shockwave Damage: 2
+Shockwave Damage: 20
 Shockwave Hurtbox: 80 x 20 pixels
 Shockwave Drop Rate: 150% Normal Fall Rate
 Jump Speed: 6.4166 pixels/sec (Acceleration?)
