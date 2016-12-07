@@ -7,6 +7,7 @@ class engine_sprite(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.move_x = 0
         self.move_y = 0
+        self.dead = False
         self.draw_hitbox = False
         self.hitboxes = []
         self.ENGINE = engine
@@ -15,12 +16,18 @@ class engine_sprite(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.move_x
         self.rect.y += self.move_y
+        if not(self.alive()):
+            del self
 
     def on_collision(self,other,hitbox,otherbox):
         pass
     
     def on_event(self,event):
         pass
+
+    def kill(self):
+        super().kill()
+        del self
 
 class hitbox(object):
     def __init__(self,rect,color,esprite):

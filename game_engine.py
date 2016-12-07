@@ -7,6 +7,7 @@ DISPLAYSURF = pygame.display.set_mode((320,240),RESIZABLE)
 
 class game_engine(object):
     def __init__(self,size=(320,240),title="Game Engine"):
+        super().__init__()
         game_engine.DISPLAYWIDTH = size[0]
         game_engine.DISPLAYHEIGHT = size[1]
         self.SURF = pygame.surface.Surface(size)
@@ -56,9 +57,11 @@ class game_engine(object):
             for sprite2 in self.sprites():
                 if not(sprite is sprite2):#Make sure we're comparing two different objects!
                     for i in range(len(sprite.hitboxes)):
-                        for j in range(len(sprite.hitboxes)):
+                        for j in range(len(sprite2.hitboxes)):
                             if sprite.hitboxes[i].rect.colliderect(sprite2.hitboxes[j].rect):
                                 sprite.on_collision(sprite2,sprite.hitboxes[i],sprite2.hitboxes[j])
+            if not(sprite.alive):
+                del sprite
         self.sprites().update()
         self.sprites().draw(self.SURF)
         for sprite in self.sprites():

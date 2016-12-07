@@ -37,8 +37,6 @@ class mob(engine_sprite):
         self.health -= damage
         if self.check_health():
             self.on_survive()
-        else:
-            self.kill()
 
     # Call this method if mob is still alive after taking damage.
     def on_survive(self):
@@ -48,7 +46,7 @@ class mob(engine_sprite):
         pass
 
 class meteor(mob):
-    def __init__(self,engine,health=1):
+    def __init__(self,engine,health=2):
         mob.__init__(self,engine,health)
         self.image = pygame.image.load('meteor.png').convert()
         self.rect = self.image.get_rect()
@@ -59,8 +57,17 @@ class meteor(mob):
         if self.rect.x < -10 or self.rect.y > 730 or self.rect.y < -10:
             self.kill()
     def on_collision(self,other,hitbox,otherbox):
-        if other is Bullet:
+        print("Asteroid hit by something!")
+        if type(other) is Bullet:
+            print("Asteroid hit by Bullet!")
+            print("Health before: "+str(self.health))
             self.take_damage(other.damage)
+            print("Health after: "+str(self.health))
+    def on_death(self):
+        print("DIE!")
+        self.kill()
+        if (self.alive()):
+            print("KILL DOES NOTHING!")
 
 
 class player(mob):
@@ -77,8 +84,8 @@ class player(mob):
         self.rect.x = 50
         self.rect.y = 120
 
-        self.x_speed = 2
-        self.y_speed = 2
+        self.x_speed = 10
+        self.y_speed = 10
 
         self.bullet_timer = 0
 
