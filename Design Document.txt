@@ -1,0 +1,155 @@
+The Little Vector that Could Design Document
+
+Two Level Types
+Tank
+The tank form levels require an amount of platforming while also shooting enemies. The player must keep the tank from falling below the bottom of the screen but also not get hit and destroy enemies.
+
+Fighter
+The fighter form levels move quicker (about 50% faster scrolling) and involve much more quick reactions and precise movement to avoid getting hit.
+
+
+Player Forms
+
+Tank
+Health
+The tank form has more HP than the fighter form. It can take around 4-5 hits from regular enemies.
+
+Movement
+The tank must roll along the top of tiles and can hover up 2.2 tiles over the course of 0.8 seconds at which point the tank begins to fall back down. Holding down will make the tank drop faster. If it goes over a gap in the lowest of the six tile rows, it will fall down and die once it leaves the screen.
+
+Weapon
+The player's weapon in tank form is a bullet directed at where the player's cursor is at the time. The bullet is large and travels faster than any of the enemies' attacks. Additionally, unlike every other projectile in the game, it doesn't disappear upon hitting an enemy.
+
+Shockwave
+Holding down while in the air shoots the tank down and creates a shockwave when it lands, dealing massive damage to the enemies on the ground when it connects. While performing a Shockwave, the player is immune. Function is partially as a nice option and also to prevent the player getting trapped by being forced to go down into ground enemies. (Damage should be at least enough to one-shot ground enemies.)
+
+Fighter
+Health
+The fighter form has less HP than the tank form. It can take around 3-4 hits from regular enemies.
+
+Movement
+The fighter form moves freely up and down without regard for tiles. It can go from the very top of the screen to the bottom in 1.2 seconds.
+
+Weapon
+Unlike tank form, the fighter form's weapon only shoots towards the right side. It also, however, shoots three bullets with each shot. The projectiles start out in the same location but quickly fan out before all going along a horizontal line towards the right side.
+
+
+Enemy Types
+
+Sky Enemies
+Minions
+Move right to left at the same speed the map scrolls (possibly faster), shooting bullets that go towards the left. Typically appear in wings. Take one or two shots to destroy.
+
+Strikers
+Move up and down and shoot directly at the player. Take at least three shots to destroy.
+
+Ground Enemies
+Turrets
+Only spawn on top of the lowest of the six tile rows. Shoot bullets at a 60 degree angle towards the left and up. Destroyed in two hits.
+
+Non-Attacking
+Asteroids
+Travel from right to left faster than the map scrolls and damage the player badly (at least 40% of player max health) if they make contact.Take multiple shots to destroy.
+
+Medkits(?)
+Spawn only on the second highest tile row. Scroll slower than anything else. Heal for about half of max health.
+
+
+
+
+Numbers
+
+Player
+
+Tank Form
+HP: 100
+Bullet Damage: 10
+Bullet Speed: 1200
+Shockwave Damage: 20
+Shockwave Hurtbox: 80 x 20 pixels
+Shockwave Drop Rate: 150% Normal Fall Rate
+Jump Speed: 6.4166 pixels/sec (Acceleration?)
+Jump Duration: 0.8 secs
+Scroll Rate: 140
+
+Fighter Form
+HP: 80
+Bullet damage: 
+Bullet Speed: 900
+Top-to-Bottom Time: 1.2 secs
+Vertical Movement Rate: 600 pixels/sec, no acceleration
+Scroll Rate: 210 (?)
+Max Scroll Rate: 254
+
+Tiles
+Size: 140 x 140 pixels
+Positioning: 5 full tiles make up majority of screen, with the bottom, sixth row, having 140 x 20 dimensions
+Damage: Player dies instantly if they hit the side of one
+
+Enemies
+
+Minion
+HP: 10
+Damage: 20
+Scroll Rate: 240
+
+Striker
+HP: 30
+Damage: 30
+Scroll Rate: 100
+
+Turret
+HP: 20
+Damage: 30
+Scroll Rate: 140
+
+Asteroid
+HP: 60
+Damage: 40
+Scroll Rate: 300
+
+Medkits
+Heal Amount: 40
+Scroll Rate: 80
+
+Random Generation Algorithm Requirements
+Tiles
+If the last two tiles have been the same number, the third must be a different one
+If the previous tile was 3 or more lower than the current tile, the next must be at least one lower than the current one
+If a tile gap occurs, the next tile to show up must be at most 1 tile row above the one before the gap
+When a tile is generated, the enemies along with it are too
+
+Enemies
+Minions
+
+Turrets
+Two per tile they're on (can be on tiles 1-5, but not the topmost)
+Asteroids
+Asteroids every 8-12 seconds
+
+
+for tile in tile_list:
+    if tile.self.pos[0] > -71 and < 71:
+        collision_tile_row = tile.self.row
+
+# tile.self.row goes from top to bottom
+# Topmost row is 0
+# Bottom row is 5
+
+if PCYPOS == 140 or PCYPOS == 280 or PCYPOS == 420 or PCYPOS == 560 or PCYPOS == 700:
+    if (collision_tile_row * 140)//PCYPOS == 1:
+        PCDOWNWARDMOVEMENT = 0
+
+if PCYPOS > (collision_tile_row * 140) and PCYPOS < ((collision_tile_row * 140) + 140):
+    # checks whether the player is within the tile (essentially a way of checking collision without collision)
+    player_death()
+    # calls whatever player death function there is
+
+# tile.pos_change moves the tile by 2 pixels per frame for two frames
+# the frame after that is 3 pixels, then back to 2 for two frames
+
+for tile in tile_list:
+    DISPLAYSURF.blit(tile.self.SURF, tile.self.pos)
+
+for tile in tile_list:
+    tile.pos_change()
