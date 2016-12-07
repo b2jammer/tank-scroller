@@ -115,7 +115,7 @@ Scroll Rate: 80
 Random Generation Algorithm Requirements
 Tiles
 If the last two tiles have been the same number, the third must be a different one
-If the last tile was 3 or more lower than the current tile, the next must be at least one lower than the current one
+If the previous tile was 3 or more lower than the current tile, the next must be at least one lower than the current one
 If a tile gap occurs, the next tile to show up must be at most 1 tile row above the one before the gap
 When a tile is generated, the enemies along with it are too
 
