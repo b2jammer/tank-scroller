@@ -5,6 +5,8 @@
 import pygame, sys
 from pygame.locals import *
 from menuLineG import menuLineG
+from menu_credits import menu_credits
+from menu_controls import menu_controls
 
 pygame.init()
 
@@ -15,17 +17,17 @@ flashing_white = [255, 255, 255]
 DISPLAYWIDTH = 1280
 DISPLAYHEIGHT = 720
 DISPLAYSURF = pygame.display.set_mode((DISPLAYWIDTH, DISPLAYHEIGHT))
-pygame.display.set_caption("The Little Voxel that Could - Main Menu")
+pygame.display.set_caption("The Little Voxel that Could")
 DISPLAYSURF.fill(BLACK)
 
-def game_loop():
+def game_loop(DISPLAYSURF, DISPLAYHEIGHT, DISPLAYWIDTH):
     pygame.quit()
     sys.exit()
 
 def menu_loop(TITLETEXTSURF):
     sel_pos = 1
     DISPLAYSURF.fill(BLACK)
-    menufont3 = pygame.font.Font("OdalisqueNF.ttf", 30)
+    menufont3 = pygame.font.Font("ARCADECLASSIC.ttf", 30)
     main_menu_line1 = menuLineG(menufont3, "Play Game")
     main_menu_line2 = menuLineG(menufont3, "Controls")
     main_menu_line3 = menuLineG(menufont3, "Credits")
@@ -43,38 +45,30 @@ def menu_loop(TITLETEXTSURF):
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        print("1")
+        pygame.time.wait(50)
         keys_pressed = pygame.key.get_pressed()
-        print(keys_pressed)
         if keys_pressed[K_RETURN] == 1:
             if sel_pos == 1:
-                game_loop()
+                game_loop(DISPLAYSURF, DISPLAYHEIGHT, DISPLAYWIDTH)
             if sel_pos == 2:
-                pass
+                menu_controls(DISPLAYSURF, TITLETEXTSURF, DISPLAYWIDTH, DISPLAYHEIGHT)
             if sel_pos == 3:
-                pass
+                menu_credits(DISPLAYSURF, TITLETEXTSURF, DISPLAYWIDTH, DISPLAYHEIGHT)
             if sel_pos == 4:
                 pygame.quit()
                 sys.exit()
-        print("2")
         if (keys_pressed[K_DOWN] + keys_pressed[K_s] + keys_pressed[K_UP] + keys_pressed[K_w]) > 1:
             pass
-            print("11")
         elif (keys_pressed[K_DOWN] + keys_pressed[K_s] + keys_pressed[K_UP] + keys_pressed[K_w]) > 0:
             key_printed = 0
-            print(keys_pressed)
             if sel_pos > 1 and (keys_pressed[K_UP] == 1 or keys_pressed[K_w]) == 1:
                 sel_pos -= 1
-                print("12")
             elif sel_pos == 1 and (keys_pressed[K_UP] == 1 or keys_pressed[K_w]) == 1:
                 sel_pos = 4
-                print("13")
             if sel_pos < 4 and (keys_pressed[K_DOWN] == 1 or keys_pressed[K_s]) == 1:
                 sel_pos += 1
-                print("14")
             elif sel_pos == 4 and (keys_pressed[K_DOWN] == 1 or keys_pressed[K_s]) == 1:
                 sel_pos = 1
-                print("15")
 ##            while keys_pressed[K_DOWN] == 1 or keys_pressed[K_s] == 1 or keys_pressed[K_UP] == 1 or keys_pressed[K_w] == 1:
 ##                while True:
 ##                    for event in pygame.event.get():
@@ -83,7 +77,6 @@ def menu_loop(TITLETEXTSURF):
 ##                            sys.exit()
 ##                keys_pressed = pygame.key.get_pressed()
 ##                pygame.display.update()
-        print("3")
         if sel_pos == 1:
             sel_cursor_pos = ((DISPLAYWIDTH//3) - 25, (DISPLAYHEIGHT//3) + (DISPLAYHEIGHT//8) + (DISPLAYHEIGHT//12))
         elif sel_pos == 2:
@@ -92,7 +85,6 @@ def menu_loop(TITLETEXTSURF):
             sel_cursor_pos = ((DISPLAYWIDTH//3) - 25, (DISPLAYHEIGHT//3) + ((DISPLAYHEIGHT//8) * 3) + (DISPLAYHEIGHT//12))
         elif sel_pos == 4:
             sel_cursor_pos = ((DISPLAYWIDTH//3) - 25, (DISPLAYHEIGHT//3) + ((DISPLAYHEIGHT//8) * 4) + (DISPLAYHEIGHT//12))
-        print("4")
         DISPLAYSURF.fill(BLACK)
         DISPLAYSURF.blit(TITLETEXTSURF, (180, 75))
         DISPLAYSURF.blit(main_menu_line1.SURF, line1_pos)
@@ -100,7 +92,6 @@ def menu_loop(TITLETEXTSURF):
         DISPLAYSURF.blit(main_menu_line3.SURF, line3_pos)
         DISPLAYSURF.blit(main_menu_line4.SURF, line4_pos)
         DISPLAYSURF.blit(CURSORSURF, sel_cursor_pos)
-        print("5")
         pygame.display.update()
 
 class clickAnywhereG(object):
@@ -108,7 +99,7 @@ class clickAnywhereG(object):
         self.SURF = surf
 
     def fade(self, TITLETEXTSURF, menufont1, TX1):
-        menufont2 = pygame.font.Font("OdalisqueNF.ttf", 30)
+        menufont2 = pygame.font.Font("ARCADECLASSIC.ttf", 30)
         reappear_delay = 0
         fade = 1
         while True:
@@ -119,7 +110,7 @@ class clickAnywhereG(object):
             mouse_buttons = pygame.mouse.get_pressed()
             if mouse_buttons[0] == 1:
                 TITLETEXTSURF.fill(BLACK)
-                TITLETEXTSURF = menufont1.render("The Little Vector that Could", True, WHITE, None)
+                TITLETEXTSURF = menufont1.render("TheLittle Vector that Could", True, WHITE, None)
                 TITLETEXTSURF = pygame.transform.scale(TITLETEXTSURF, TX1)
                 menu_loop(TITLETEXTSURF)
             pygame.time.wait(10)
@@ -153,7 +144,7 @@ class clickAnywhereG(object):
 
 
 def main():
-    menufont1 = pygame.font.Font("OdalisqueNF.ttf", 50)
+    menufont1 = pygame.font.Font("Fixedsys.ttf", 50)
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
