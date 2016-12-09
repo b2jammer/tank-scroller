@@ -65,7 +65,7 @@ class meteor(mob):
             print("Health after: "+str(self.health))
     def on_death(self):
         print("DIE!")
-        self.kill()#Remove from all sprite groups
+        self.kill()
         if (self.alive()):
             print("KILL DOES NOTHING!")
 

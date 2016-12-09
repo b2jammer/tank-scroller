@@ -61,10 +61,11 @@ Numbers
 
 Player
 
-Tank Form
+Tank Form (Dimensions: 50 x 30)
 HP: 100
 Bullet Damage: 10
 Bullet Speed: 1200
+Bullet Size: 60 x 36
 Shockwave Damage: 20
 Shockwave Hurtbox: 80 x 20 pixels
 Shockwave Drop Rate: 150% Normal Fall Rate
@@ -72,10 +73,11 @@ Jump Speed: 6.4166 pixels/sec (Acceleration?)
 Jump Duration: 0.8 secs
 Scroll Rate: 140
 
-Fighter Form
+Fighter Form (Dimensions: 55 x 40)
 HP: 80
-Bullet damage: 
+Bullet Damage: 15
 Bullet Speed: 900
+Bullet Size: 60 x 20
 Top-to-Bottom Time: 1.2 secs
 Vertical Movement Rate: 600 pixels/sec, no acceleration
 Scroll Rate: 210 (?)
@@ -88,22 +90,28 @@ Damage: Player dies instantly if they hit the side of one
 
 Enemies
 
-Minion
+Minion (Dimensions: 60 x 50)
 HP: 10
 Damage: 20
 Scroll Rate: 240
+Bullet Speed: 500
+Bullet Size: 40 x 40
 
-Striker
-HP: 30
+Striker (Dimensions: 90 x 75)
+HP: 40
 Damage: 30
 Scroll Rate: 100
+Bullet Speed: 1200
+Bullet Size: 120 x 50
 
-Turret
+Turret (Dimensions: 50 x 50)
 HP: 20
 Damage: 30
 Scroll Rate: 140
+Bullet Speed: 400
+Bullet Size: 40 x 40
 
-Asteroid
+Asteroid (Dimensions: 210 x 210)
 HP: 60
 Damage: 40
 Scroll Rate: 300
