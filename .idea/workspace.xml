@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="185c7da2-4203-43d0-b877-ad3b74f24407" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/bullet.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/bullet_class.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/crosshair.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/esprite_class.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/game_engine.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/meteor.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/mob_class.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/player_plane.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/player_tank.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/settings.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/tilemap.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/tiles/concrete/0.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/tiles/concrete/1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/tiles/tile/0.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/vectorTest.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tiles/vectors.py" afterPath="" />
+    <list default="true" id="185c7da2-4203-43d0-b877-ad3b74f24407" name="Default" comment="Started collision shenanigans.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/esprite_class.py" afterPath="$PROJECT_DIR$/esprite_class.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game_engine.py" afterPath="$PROJECT_DIR$/game_engine.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mob_class.py" afterPath="$PROJECT_DIR$/mob_class.py" />
@@ -46,18 +26,18 @@
       <file leaf-file-name="tilemap.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tilemap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
+            <state relative-caret-position="357">
               <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mob_class.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mob_class.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mob_class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+            <state relative-caret-position="465">
+              <caret line="67" column="49" lean-forward="false" selection-start-line="67" selection-start-column="49" selection-end-line="67" selection-end-column="49" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -65,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="esprite_class.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="esprite_class.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/esprite_class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="20" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+            <state relative-caret-position="357">
+              <caret line="23" column="12" lean-forward="false" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -97,8 +77,8 @@
       <file leaf-file-name="bullet_class.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bullet_class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+            <state relative-caret-position="306">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -109,8 +89,8 @@
       <file leaf-file-name="game_engine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_engine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="62" column="32" lean-forward="false" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+            <state relative-caret-position="1020">
+              <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -121,7 +101,7 @@
       <file leaf-file-name="sprite.py" pinned="false" current-in-tab="false">
         <entry file="file://C:/Python34/Lib/site-packages/pygame/sprite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="545">
+            <state relative-caret-position="7786">
               <caret line="461" column="0" lean-forward="false" selection-start-line="461" selection-start-column="0" selection-end-line="461" selection-end-column="0" />
               <folding />
             </state>
@@ -138,9 +118,9 @@
       <list>
         <option value="$PROJECT_DIR$/tilemap.py" />
         <option value="$PROJECT_DIR$/bullet_class.py" />
-        <option value="$PROJECT_DIR$/mob_class.py" />
         <option value="$PROJECT_DIR$/game_engine.py" />
         <option value="$PROJECT_DIR$/esprite_class.py" />
+        <option value="$PROJECT_DIR$/mob_class.py" />
       </list>
     </option>
   </component>
@@ -166,8 +146,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,7 +166,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="full.screen.before.presentation.mode" value="false" />
   </component>
   <component name="RunManager" selected="Python.game_engine">
@@ -361,6 +341,14 @@
       <option name="presentableId" value="Default" />
       <updated>1480626718980</updated>
     </task>
+    <task id="LOCAL-00001" summary="Started collision shenanigans.">
+      <created>1481146764306</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1481146764306</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -379,7 +367,7 @@
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17956819" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32853982" sideWeight="0.49166667" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853982" sideWeight="0.49166667" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853982" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -416,6 +404,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Started collision shenanigans." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started collision shenanigans." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -804,19 +796,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tilemap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
+        <state relative-caret-position="357">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bullet_class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -828,15 +810,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Python34/Lib/site-packages/pygame/sprite.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7786">
+          <caret line="461" column="0" lean-forward="false" selection-start-line="461" selection-start-column="0" selection-end-line="461" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_engine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bullet.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game_engine.py">
+    <entry file="file://$PROJECT_DIR$/bullet_class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="62" column="32" lean-forward="false" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+        <state relative-caret-position="306">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/esprite_class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="23" column="12" lean-forward="false" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
@@ -845,26 +855,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mob_class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python34/Lib/site-packages/pygame/sprite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="461" column="0" lean-forward="false" selection-start-line="461" selection-start-column="0" selection-end-line="461" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/esprite_class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="20" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+        <state relative-caret-position="465">
+          <caret line="67" column="49" lean-forward="false" selection-start-line="67" selection-start-column="49" selection-end-line="67" selection-end-column="49" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>

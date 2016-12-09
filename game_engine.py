@@ -61,9 +61,9 @@ class game_engine(object):
                             if sprite.hitboxes[i].rect.colliderect(sprite2.hitboxes[j].rect):
                                 sprite.on_collision(sprite2,sprite.hitboxes[i],sprite2.hitboxes[j])
             if not(sprite.alive):
-                del sprite
-        self.sprites().update()
-        self.sprites().draw(self.SURF)
+                sprite.kill()
+        self.SPRITES.update()
+        self.SPRITES.draw(self.SURF)
         for sprite in self.sprites():
             #if sprite.draw_hitbox:
             pygame.draw.rect(self.SURF,(255,255,255),sprite.rect,1)
@@ -121,6 +121,7 @@ def main():
             newmeteor = mob_class.meteor(ENGINE)
             newmeteor.rect.x = 1290
             newmeteor.rect.y = random.randint(10,710)
+            del newmeteor
         draw_screen(ENGINE.display(),pygame.display.get_surface())
         pygame.display.update()
 
