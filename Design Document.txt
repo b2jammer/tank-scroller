@@ -62,7 +62,7 @@ Numbers
 Player
 
 Tank Form (Dimensions: 50 x 30)
-HP: 100
+HP: 150
 Bullet Damage: 10
 Bullet Speed: 1200
 Bullet Size: 60 x 36
