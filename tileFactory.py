@@ -4,22 +4,21 @@
 
 # Example of a call:
 # temp_row = randint(1,6)
-# tile1 = tileFactory(140, 1, temp_row)
-# tiles_list.append(tile1)
-# possible "tile" + str(tile_count) = tileFactory(140, 1, temp_row)
+# tile1 = tileFactory(scroll_speed, t_or_f_level, temp_row)
 
 import pygame, sys
 from pygame.locals import *
 
+
 class tileFactory(object):
-    def __init__(self, scrollspeed, tankorfighterlevel, tilerow):
+    def __init__(self, scrollspeed, tankorfighterlevel, tilerow, DRAWDISTANCE=1400):
         self.scroll = scrollspeed
         self.torf = tankorfighterlevel
         self.scrolled_amount = 0
         self.pixel_frac_balance = 1
         row_assigned = 0
         TILESIZE = 140
-        DRAWDISTANCE = 2000
+        self.DRAWDISTANCE = DRAWDISTANCE
         # If there are performance problems, lowering the draw distance
         # should help. But it should never go below DISPLAYHEIGHT + 140.
         
@@ -48,7 +47,7 @@ class tileFactory(object):
             self.row = 5
             row_assigned = 1
 
-        self.pos = (DRAWDISTANCE, int(self.row * TILESIZE))
+        self.pos = (self.DRAWDISTANCE, int(self.row * TILESIZE))
 
         self.TILESURF = pygame.Surface((TILESIZE, TILESIZE))
         self.TILESURF = pygame.image.load("tile.png")
@@ -68,21 +67,19 @@ class tileFactory(object):
             # 140 / 60 (2.33 pixels) per frame speed. If scroll speed is
             # adjusted, this part will need to be tweaked slightly.
             self.scrolled_amount += self.pixel_scroll_num
-            self.pos = (DRAWDISTANCE - self.scrolled_amount, self.pos[1])
+            self.pos = (self.DRAWDISTANCE - self.scrolled_amount, self.pos[1])
+            pos = self.pos
 
         if self.torf == 2:
-            pass
-        # Will be written once fighter scroll speed is determined.
-
-
-
-
-
-
-
-
-
-
+            self.pixel_scroll_num = 3
+            if self.pixel_frac_balance == 4:
+                self.pixel_scroll_num = 4
+                self.pixel_frac_balance = 1
+            else:
+                self.pixel_frac_balance += 1
+            self.scrolled_amount += self.pixel_scroll_num
+            self.pos = (self.DRAWDISTANCE - self.scrolled_amount, self.pos[1])
+            pos = self.pos
 
 
 

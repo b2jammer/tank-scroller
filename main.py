@@ -7,6 +7,7 @@ from pygame.locals import *
 from menuLineG import menuLineG
 from menu_credits import menu_credits
 from menu_controls import menu_controls
+from core_game_loop import core_game_loop
 
 pygame.init()
 
@@ -16,13 +17,10 @@ flashing_white = [255, 255, 255]
 
 DISPLAYWIDTH = 1280
 DISPLAYHEIGHT = 720
-DISPLAYSURF = pygame.display.set_mode((DISPLAYWIDTH, DISPLAYHEIGHT))
+DISPLAYSURF = pygame.display.set_mode((DISPLAYWIDTH, DISPLAYHEIGHT), DOUBLEBUF)
 pygame.display.set_caption("The Little Voxel that Could")
 DISPLAYSURF.fill(BLACK)
 
-def game_loop(DISPLAYSURF, DISPLAYHEIGHT, DISPLAYWIDTH):
-    pygame.quit()
-    sys.exit()
 
 def menu_loop(TITLETEXTSURF):
     sel_pos = 1
@@ -49,7 +47,7 @@ def menu_loop(TITLETEXTSURF):
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[K_RETURN] == 1:
             if sel_pos == 1:
-                game_loop(DISPLAYSURF, DISPLAYHEIGHT, DISPLAYWIDTH)
+                core_game_loop(DISPLAYSURF, DISPLAYHEIGHT, DISPLAYWIDTH)
             if sel_pos == 2:
                 menu_controls(DISPLAYSURF, TITLETEXTSURF, DISPLAYWIDTH, DISPLAYHEIGHT)
             if sel_pos == 3:
