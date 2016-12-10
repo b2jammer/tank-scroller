@@ -72,6 +72,7 @@ Shockwave Drop Rate: 150% Normal Fall Rate
 Jump Speed: 6.4166 pixels/sec (Acceleration?)
 Jump Duration: 0.8 secs
 Scroll Rate: 140
+Fall Speed: 240
 
 Fighter Form (Dimensions: 55 x 40)
 HP: 80
