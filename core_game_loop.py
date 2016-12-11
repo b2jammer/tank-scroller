@@ -85,10 +85,10 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
 
         if wait_control == 0 or wait_control == 1:
             pygame.time.wait(17)
-            wait_control = 0
+            wait_control += 1
         else:
             pygame.time.wait(16)
-            wait_control += 1
+            wait_control = 0
 
         if tile_make_in == tile_make_in_max:
             tile_list.append(0)
