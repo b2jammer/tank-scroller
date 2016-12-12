@@ -47,7 +47,7 @@ def menu_loop(TITLETEXTSURF):
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[K_RETURN] == 1:
             if sel_pos == 1:
-                core_game_loop(DISPLAYSURF, DISPLAYHEIGHT, DISPLAYWIDTH)
+                core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT)
             if sel_pos == 2:
                 menu_controls(DISPLAYSURF, TITLETEXTSURF, DISPLAYWIDTH, DISPLAYHEIGHT)
             if sel_pos == 3:
@@ -108,7 +108,7 @@ class clickAnywhereG(object):
             mouse_buttons = pygame.mouse.get_pressed()
             if mouse_buttons[0] == 1:
                 TITLETEXTSURF.fill(BLACK)
-                TITLETEXTSURF = menufont1.render("TheLittle Vector that Could", True, WHITE, None)
+                TITLETEXTSURF = menufont1.render("The Little Vector that Could", True, WHITE, None)
                 TITLETEXTSURF = pygame.transform.scale(TITLETEXTSURF, TX1)
                 menu_loop(TITLETEXTSURF)
             pygame.time.wait(10)

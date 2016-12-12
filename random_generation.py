@@ -52,10 +52,10 @@ def tile_gen_tank(past_row, prev_row, cur_row):
         
     if (cur_row - 3) >= prev_row:
         if prev_row == 1:
-            temp_row = randint(1, 3)
+            temp_row = randint(1, 2)
             return temp_row
         if prev_row == 2:
-            temp_row = randint(1, 4)
+            temp_row = randint(1, 3)
             return temp_row
 
     if (cur_row + 3) <= prev_row:

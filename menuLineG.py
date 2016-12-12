@@ -6,7 +6,7 @@ import pygame, sys
 from pygame.locals import *
 
 class menuLineG(object):
-    def __init__(self, font, text):
+    def __init__(self, font, text, pos=0):
         self.font = font
         self.text = text
         self.color = (255, 255, 255)
@@ -16,3 +16,7 @@ class menuLineG(object):
         SURF = self.SURF
         # Python had troubles calling self.SURF from this class for some
         # reason, but didn't have any problems calling SURF.
+
+        if not pos == 0:
+            self.pos = pos
+            position = self.pos

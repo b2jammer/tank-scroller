@@ -53,6 +53,7 @@ class tileFactory(object):
         self.TILESURF = pygame.image.load("tile.png")
         self.TILESURF = pygame.transform.scale(self.TILESURF, (TILESIZE, TILESIZE))
         TILESURF = self.TILESURF
+        pos = self.pos
 
     def pos_change(self):
 

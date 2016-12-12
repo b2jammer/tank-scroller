@@ -2,16 +2,18 @@
 ## Andrew Herrera and Benjamin Rose
 ## Fall 2016
 
+## Issue 1: Mobs need to be given their own surface, as f
 
 import pygame, sys
 from pygame.locals import *
 from random import randint
 from random_generation import tile_gen_tank, tile_gen_fight
 from tileFactory import tileFactory
+from level_end import level_end
 
 BLACK = (0, 0, 0)
-LEVEL_LENGTH_CONTROL = 120
-## Seconds in the level.
+LEVEL_LENGTH_CONTROL = 20
+## Seconds in the level + 10 in preparation for level_end.py.
 
 
 def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
@@ -30,10 +32,23 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
         scroll_speed = 210
 
     tile_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    minion_list = []
+    striker_list = []
+    turret_list = []
+
     wait_control = 0
-    tile_make_in = 0
     level_end_in = LEVEL_LENGTH_CONTROL * 60
-    tile_list_clear = 0
+    
+    tile_make_in = 0
+    minions_make_in = 0
+    striker_make_in = 0
+    turret_make_in = 0
+    
+    minions_killed = 0
+    strikers_killed = 0
+    turrets_killed = 0
+    asteroids_killed = 0
+    
     if lvl_type_choice == "t":
         tile_make_in_max = 60
         tile_list_clear_max = 600
@@ -76,6 +91,7 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
     tile_list[8] = start_tile9
     tile_list[9] = start_tile10
     tile_list[10] = start_tile11
+##    HUD_time_display = HUD(DISPLAYSURF, level_end_in)
 
     while True:
         for event in pygame.event.get():
@@ -91,48 +107,81 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
             wait_control = 0
 
         if tile_make_in == tile_make_in_max:
-            tile_list.append(0)
-            if t_or_f_level == 1:
-                temp_row = tile_gen_tank(past_row, prev_row, cur_row)
-            if t_or_f_level == 2:
-                temp_row = tile_gen_fight(past_row, prev_row, cur_row)
-            past_row = prev_row
-            prev_row = cur_row
-            cur_row = temp_row
-            tile_list[tile_num] = tileFactory(scroll_speed, t_or_f_level, temp_row)
-            temp_list = []
-            for index in range(len(tile_list) - 1):
-                temp_list.append(tile_list[index + 1])
-                ## Chance "index + 1" into "len(tile_list) - 1" for a
-                ## hilarious bug.
-            tile_list = temp_list
-            tile_make_in = 0
+            if level_end_in <= 600 and lvl_type_choice == "t":
+                tile_list.append(0)
+                tile_list[tile_num] = tileFactory(scroll_speed, t_or_f_level, 1)
+                temp_list = []
+                for index in range(len(tile_list) - 1):
+                    temp_list.append(tile_list[index + 1])
+                tile_list = temp_list
+                tile_make_in = 0
+            ## Tells the loop to generate tiles only on row 1 as the level will
+            ## end in ten seconds.
+            elif level_end_in > 600:
+                if t_or_f_level == 1:
+                    temp_row = tile_gen_tank(past_row, prev_row, cur_row)
+                if t_or_f_level == 2:
+                    temp_row = tile_gen_fight(past_row, prev_row, cur_row)
+                past_row = prev_row
+                prev_row = cur_row
+                cur_row = temp_row
+                tile_list.append(0)
+                tile_list[tile_num] = tileFactory(scroll_speed, t_or_f_level, temp_row)
+                temp_list = []
+                for index in range(len(tile_list) - 1):
+                    temp_list.append(tile_list[index + 1])
+                    ## Change "index + 1" into "len(tile_list) - 1" for a
+                    ## hilarious bug.
+                tile_list = temp_list
+                tile_make_in = 0
+            elif level_end_in <= 600 and lvl_type_choice == "f":
+                temp_list = []
+                for index in range(len(tile_list) - 1):
+                    temp_list.append(tile_list[index + 1])
+            ## Tells the loop to stop generating tiles if it's a fighter level,
+            ## since the level will end in ten seconds.
     
         tile_make_in += 1
+        level_end_in -= 1
 
-##        if tile_list_clear == tile_list_clear_max:
-##            temp_list = []
-##            for x in range(11):
-##                index = (len(tile_list) - x) - 1
-##                print("1")
-##                print(index)
-##                temp_list.append(tile_list[index])
-##            tile_list = temp_list
-##            tile_list_clear = 0
-##            tile_num = 11
+##        for index in minion_kill_list:
+####            DISPLAYSURF.blit(minion_list[index].surf, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
+##            minion_list[index] = 0
+##        minion_kill_list = []
+##        for index in striker_kill_list:
+####            DISPLAYSURF.blit(striker_list[index].surf, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
+##            striker_list[index] = 0
+##        striker_kill_list = []
+##        for index in turret_kill_list:
+####            DISPLAYSURF.blit(turret_list[index].surf, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
+##            turret_list[index] = 0
+##        turret_kill_list = []
+        ## Removes a sprite class from their sprite list at the index stored in
+        ## their kill list (which should always be accurate at this point) and
+        ## replaces it with a 0. (Does not directly remove them from the list
+        ## as that would make the rest of the indicies in the kill list
+        ## inaccurate due to list length being changed.)
+        ## 
+        ## The DISPLAYSURF.blit is strictly for moving them offscreen first
+        ## so they don't remain and interact with other entites. Will not work
+        ## at this moment.
 
-        tile_list_clear += 1
-        
+##        for minion in minion_list:
+##            minion.update()
+##        for striker in striker_list:
+##            striker.update()
+##        for turret in turret_list:
+##            turret.update()
+            
         for tile in tile_list:
             tile.pos_change()
         DISPLAYSURF.fill(BLACK)
         for tile in tile_list:
             DISPLAYSURF.blit(tile.TILESURF, tile.pos)
+##        HUD_time_display.timer_display(level_end_in)
 
-        level_end_in -= 1
         if level_end_in == 0:
-            pygame.quit()
-            sys.exit()
+            level_end(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT, tile_list, lvl_type_choice, minions_killed, strikers_killed, turrets_killed, asteroids_killed)
             
         pygame.display.update()
 
