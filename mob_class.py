@@ -6,13 +6,18 @@ import esprite_class
 from esprite_class import engine_sprite
 
 class mob(engine_sprite):
-    def __init__(self,engine,health=1):
+    def __init__(self,engine,health=1, sprite_kill_list=0, type_killed_num=0, indexnum=1000):
         engine_sprite.__init__(self,engine)
         pygame.sprite.Sprite.__init__(self)
         # Set up health variables.
         self.max_health = health
         self.health = self.max_health
         self.dead = False
+        self.list_index = indexnum
+        self.sprite_kill_list = sprite_kill_list
+        self.type_killed_num = type_killed_num
+        ## This is for the end of level--tracks how many of each enemy
+        ## were killed and displays it.
         # When mercy frames > 0, mob blinks and cannot take damage until
         # mercy frames drops back down to 0.
         self.mercy_frames = 0 
@@ -30,7 +35,7 @@ class mob(engine_sprite):
         if self.health <= 0 and not self.dead:
             self.health = 0
             self.dead = True
-            self.on_death()
+            self.on_death(self.sprite_kill_list)
         return not self.dead
 
     def take_damage(self,damage):
@@ -43,11 +48,21 @@ class mob(engine_sprite):
         pass
 
     def on_death(self):
-        pass
+        if self.list_index < 1000:
+            self.sprite_kill_list.append(self.list_index)
+            self.type_killed_num += 1
+    ## Adds itself to a list that will be used to remove it from the
+    ## drawn list.
+    
+    def index_update(self, indexnum):
+        self.list_index = indexnum
+    ## Called every time the sprite list is updated--whether it's from
+    ## one being killed or one going offscreen, this is called
+    ## to ensure it knows what its index location in the list is.
 
 class meteor(mob):
-    def __init__(self,engine,health=2):
-        mob.__init__(self,engine,health)
+    def __init__(self,engine,health=2,type_killed_num):
+        mob.__init__(self,engine,health,type_killed_num)
         self.image = pygame.image.load('meteor.png').convert()
         self.rect = self.image.get_rect()
         self.hitboxes.append(esprite_class.hitbox(self.rect, (0, 255, 0), self))
@@ -65,6 +80,7 @@ class meteor(mob):
             print("Health after: "+str(self.health))
     def on_death(self):
         print("DIE!")
+        self.type_killed_num += 1
         self.kill()
         if (self.alive()):
             print("KILL DOES NOTHING!")
