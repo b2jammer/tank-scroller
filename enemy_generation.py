@@ -27,7 +27,7 @@ def striker_gen(striker_list, striker_kill_list, DISPLAYWIDTH, DISPLAYHEIGHT):
     striker_y_max = DISPLAYHEIGHT - 100
     striker_y = randint(0, striker_y_max)
     striker_list.append(0)
-    striker_list[len(striker_list)] = strikerTestClass((DISPLAYWIDTH * 1.1, striker_y), len(striker_list), striker_kill_list)
+    striker_list[len(striker_list) - 1] = strikerTestClass((DISPLAYWIDTH * 1.1, striker_y), len(striker_list), striker_kill_list)
 
 
 ## turret_gen(turret_list, striker_kill_list, temp_row, lvl_type_choice)

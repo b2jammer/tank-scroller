@@ -4,6 +4,7 @@
 
 import pygame, sys
 from pygame.locals import *
+from random import randint
 
 pygame.init()
 
@@ -24,7 +25,7 @@ class minionTestClass(object):
         self.pos = (self.pos[0] - 4, self.pos[1])
         pos = self.pos
         if self.pos[0] < -60:
-            self.sprite_kill_list.append(indexnum)
+            self.sprite_kill_list.append(self.index_num)
 
     def index_update(self, indexnum):
         self.index_num = indexnum
@@ -52,7 +53,7 @@ class strikerTestClass(object):
         self.pos = (self.pos[0] - self.pixel_scroll_num, self.pos[1])
         pos = self.pos
         if self.pos[0] < -75:
-            self.sprite_kill_list.append(indexnum)
+            self.sprite_kill_list.append(self.index_num)
         
     def index_update(self, indexnum):
         self.index_num = indexnum
@@ -65,12 +66,13 @@ class turretTestClass(object):
         self.index_num = indexnum
         self.sprite_kill_list = sprite_kill_list
         self.hp = hp
-        self.torf == torf
+        self.torf = torf
         self.pixel_frac_balance = 1
         self.scrolled_amount = 0
-        self.MINSURF = pygame.Surface((60, 50))
-        self.MINSURF = pygame.image.load("entities\enemy_turret.jpg")
-        MINSURF = self.MINSURF
+        self.DRAWDISTANCE = pos[0]
+        self.TURSURF = pygame.Surface((60, 50))
+        self.TURSURF = pygame.image.load("entities\enemy_turret.jpg")
+        TURSURF = self.TURSURF
 
     def pos_change(self):
         if self.torf == 1:
@@ -98,7 +100,7 @@ class turretTestClass(object):
             self.pos = (self.DRAWDISTANCE - self.scrolled_amount, self.pos[1])
             pos = self.pos
         if self.pos[0] < -60:
-            self.sprite_kill_list.append(indexnum)
+            self.sprite_kill_list.append(self.index_num)
 
     def index_update(self, indexnum):
         self.index_num = indexnum
@@ -109,6 +111,7 @@ class asteroidTestClass(object):
     def __init__(self, pos, DISPLAYHEIGHT, hp=60):
         self.pos = pos
         self.hp = hp
+        self.DISPLAYHEIGHT = DISPLAYHEIGHT
         self.ASTSURF = pygame.Surface((210, 210))
         self.ASTSURF = pygame.image.load("entities\enemy_asteroid.jpg")
         ASTSURF = self.ASTSURF
@@ -119,7 +122,7 @@ class asteroidTestClass(object):
         pos = self.pos
         if self.pos[0] < -210:
             newx = randint(8, 12) * 300
-            newy = randint(70, DISPLAYHEIGHT - 280)
+            newy = randint(70, self.DISPLAYHEIGHT - 280)
             self.pos = (newx, newy)
             pos = self.pos
 

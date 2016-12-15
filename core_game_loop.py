@@ -2,7 +2,7 @@
 ## Andrew Herrera and Benjamin Rose
 ## Fall 2016
 
-## Issue 1: Mobs need to be given their own surface, as f
+
 
 import pygame, sys
 from pygame.locals import *
@@ -10,9 +10,12 @@ from random import randint
 from random_generation import tile_gen_tank, tile_gen_fight
 from tileFactory import tileFactory
 from level_end import level_end
+from enemy_generation import minion_gen, striker_gen, turret_gen
+from enemyTestClasses import asteroidTestClass
+from HUD import HUD
 
 BLACK = (0, 0, 0)
-LEVEL_LENGTH_CONTROL = 20
+LEVEL_LENGTH_CONTROL = 130
 ## Seconds in the level + 10 in preparation for level_end.py.
 
 
@@ -36,13 +39,23 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
     striker_list = []
     turret_list = []
 
+    minion_kill_list = []
+    striker_kill_list = []
+    turret_kill_list = []
+
     wait_control = 0
+    calc_control = 1
     level_end_in = LEVEL_LENGTH_CONTROL * 60
     
     tile_make_in = 0
-    minions_make_in = 0
+    minion_make_in = 0
     striker_make_in = 0
     turret_make_in = 0
+    asteroid_make_in = 0
+
+    minion_make_in_max = 5 * 60
+    striker_make_in_max = 3 * 60
+    turret_make_in_max = 4 * 60
     
     minions_killed = 0
     strikers_killed = 0
@@ -52,10 +65,14 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
     if lvl_type_choice == "t":
         tile_make_in_max = 60
         tile_list_clear_max = 600
+        pcmaxhp = 150
+        pccurhp = 150
     if lvl_type_choice == "f":
         tile_make_in_max = 43
         tile_list_clear_max = 430
         ## For some reason this is the number needed to make the tiles line up.
+        pcmaxhp = 80
+        pccurhp = 80
     tile_num = 11
     print(lvl_type_choice)
     
@@ -91,7 +108,11 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
     tile_list[8] = start_tile9
     tile_list[9] = start_tile10
     tile_list[10] = start_tile11
-##    HUD_time_display = HUD(DISPLAYSURF, level_end_in)
+
+    timer_font = pygame.font.Font("Fixedsys.ttf", 30)
+    
+    HUD_display = HUD(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT, timer_font, pcmaxhp)
+    great_asteroid = asteroidTestClass((randint(8, 12) * 300, randint(70, 440)), DISPLAYHEIGHT)
 
     while True:
         for event in pygame.event.get():
@@ -100,11 +121,22 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
                 sys.exit()
 
         if wait_control == 0 or wait_control == 1:
-            pygame.time.wait(17)
+            wait_amount = 17
             wait_control += 1
         else:
-            pygame.time.wait(16)
+            wait_amount = 16
             wait_control = 0
+
+        if calc_control == 1 or calc_control == 2 or calc_control == 3:
+            wait_amount = wait_amount - 4
+        if calc_control == 4: 
+            wait_amount = wait_amount - 3
+        if calc_control == 5:
+            wait_amount = wait_amount - 3
+            calc_control = 0
+
+        pygame.time.wait(wait_amount)
+        calc_control += 1
 
         if tile_make_in == tile_make_in_max:
             if level_end_in <= 600 and lvl_type_choice == "t":
@@ -134,28 +166,66 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
                     ## hilarious bug.
                 tile_list = temp_list
                 tile_make_in = 0
+                if turret_make_in == turret_make_in_max:
+                    turret_gen(turret_list, turret_kill_list, temp_row, t_or_f_level)
             elif level_end_in <= 600 and lvl_type_choice == "f":
                 temp_list = []
                 for index in range(len(tile_list) - 1):
                     temp_list.append(tile_list[index + 1])
             ## Tells the loop to stop generating tiles if it's a fighter level,
             ## since the level will end in ten seconds.
+
+
+        if minion_make_in == minion_make_in_max:
+            minion_gen(minion_list, minion_kill_list, DISPLAYWIDTH, DISPLAYHEIGHT)
+            minion_make_in = 0
+        if striker_make_in == striker_make_in_max:
+            striker_gen(striker_list, striker_kill_list, DISPLAYWIDTH, DISPLAYHEIGHT)
+            striker_make_in = 0
+
+        ## Generate enemies here and supply classes with their indicies.
     
         tile_make_in += 1
+        minion_make_in += 1
+        striker_make_in += 1
+        turret_make_in += 1
         level_end_in -= 1
 
-##        for index in minion_kill_list:
-####            DISPLAYSURF.blit(minion_list[index].surf, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
-##            minion_list[index] = 0
-##        minion_kill_list = []
-##        for index in striker_kill_list:
-####            DISPLAYSURF.blit(striker_list[index].surf, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
-##            striker_list[index] = 0
-##        striker_kill_list = []
-##        for index in turret_kill_list:
-####            DISPLAYSURF.blit(turret_list[index].surf, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
-##            turret_list[index] = 0
-##        turret_kill_list = []
+        if len(minion_list) > 0:
+            for x in range(len(minion_list)):
+                minion_list[x].index_update(x)
+                minion_list[x].pos_change()
+        if len(striker_list) > 0:
+            for x in range(len(striker_list)):
+                striker_list[x].index_update(x)
+                striker_list[x].pos_change()
+        if len(turret_list) > 0:
+            for x in range(len(turret_list)):
+                turret_list[x].index_update(x)
+                turret_list[x].pos_change()
+        great_asteroid.pos_change()
+
+
+        ## check for collision and enemy death here
+
+        if len(minion_kill_list) > 0:
+            for index in minion_kill_list:
+                DISPLAYSURF.blit(minion_list[index].MINSURF, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
+                minion_list[index] = 0
+            minion_kill_list = []
+
+        if len(striker_kill_list) > 0:
+            for index in striker_kill_list:
+                DISPLAYSURF.blit(striker_list[index].STRISURF, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
+                striker_list[index] = 0
+            striker_kill_list = []
+
+        if len(turret_kill_list) > 0:
+            for index in turret_kill_list:
+                DISPLAYSURF.blit(turret_list[index].TURSURF, (DISPLAYWIDTH + 1, DISPLAYHEIGHT + 1))
+                turret_list[index] = 0
+            turret_kill_list = []
+            
         ## Removes a sprite class from their sprite list at the index stored in
         ## their kill list (which should always be accurate at this point) and
         ## replaces it with a 0. (Does not directly remove them from the list
@@ -172,13 +242,52 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
 ##            striker.update()
 ##        for turret in turret_list:
 ##            turret.update()
+
+        if 0 in minion_list:
+            temp_list = []
+            for x in range(len(minion_list)):
+                if not minion_list[x] == 0:
+                    temp_list.append(minion_list[x])
+            minion_list = temp_list
+            for x in range(len(minion_list)):
+                minion_list[x].index_update(x)
+
+        if 0 in striker_list:
+            temp_list = []
+            for x in range(len(striker_list)):
+                if not striker_list[x] == 0:
+                    temp_list.append(striker_list[x])
+            striker_list = temp_list
+            for x in range(len(striker_list)):
+                striker_list[x].index_update(x)
+
+        if 0 in turret_list:
+            temp_list = []
+            for x in range(len(turret_list)):
+                if not turret_list[x] == 0:
+                    temp_list.append(turret_list[x])
+            turret_list = temp_list
+            for x in range(len(turret_list)):
+                turret_list[x].index_update(x)
             
         for tile in tile_list:
             tile.pos_change()
         DISPLAYSURF.fill(BLACK)
         for tile in tile_list:
             DISPLAYSURF.blit(tile.TILESURF, tile.pos)
-##        HUD_time_display.timer_display(level_end_in)
+        for minion in minion_list:
+            DISPLAYSURF.blit(minion.MINSURF, minion.pos)
+        for striker in striker_list:
+            DISPLAYSURF.blit(striker.STRISURF, striker.pos)
+        for turret in turret_list:
+            DISPLAYSURF.blit(turret.TURSURF, turret.pos)
+        DISPLAYSURF.blit(great_asteroid.ASTSURF, great_asteroid.pos)
+        HUD_display.timer_display(level_end_in)
+        HUD_display.health_display(pccurhp)
+
+        if level_end_in%60 == 0:
+            if pccurhp > 0:
+                pccurhp -= 1
 
         if level_end_in == 0:
             level_end(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT, tile_list, lvl_type_choice, minions_killed, strikers_killed, turrets_killed, asteroids_killed)
