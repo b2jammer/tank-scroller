@@ -15,7 +15,7 @@ class controlsKey(object):
         self.color = (255, 255, 255)
         self.bgcolor = (0, 0, 0)
         
-        self.surfheight = DISPLAYHEIGHT//7.2
+        self.surfheight = DISPLAYHEIGHT//12
         self.surfwidth = DISPLAYWIDTH//2
         self.CONTROLSSURF = pygame.Surface((self.surfwidth, self.surfheight))
         self.CONTROLSSURF.fill(self.bgcolor)
@@ -31,7 +31,7 @@ class controlsKey(object):
             self.letter_size = self.KEYLETTERSURF.get_size()
             self.KEYLETTERSURF = pygame.transform.scale(self.KEYLETTERSURF, self.letter_size)
 
-            self.KEYSURF.blit(self.KEYLETTERSURF, (self.surfheight//5, self.surfheight//5))
+            self.KEYSURF.blit(self.KEYLETTERSURF, (self.surfheight//3, self.surfheight//6))
             
         def tutorial_text_display(self):
 
