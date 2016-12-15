@@ -166,8 +166,9 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
                     ## hilarious bug.
                 tile_list = temp_list
                 tile_make_in = 0
-                if turret_make_in == turret_make_in_max:
+                if turret_make_in >= turret_make_in_max and level_end_in > 600:
                     turret_gen(turret_list, turret_kill_list, temp_row, t_or_f_level)
+                    turret_make_in = 0
             elif level_end_in <= 600 and lvl_type_choice == "f":
                 temp_list = []
                 for index in range(len(tile_list) - 1):
@@ -176,10 +177,10 @@ def core_game_loop(DISPLAYSURF, DISPLAYWIDTH, DISPLAYHEIGHT):
             ## since the level will end in ten seconds.
 
 
-        if minion_make_in == minion_make_in_max:
+        if minion_make_in == minion_make_in_max and level_end_in > 600:
             minion_gen(minion_list, minion_kill_list, DISPLAYWIDTH, DISPLAYHEIGHT)
             minion_make_in = 0
-        if striker_make_in == striker_make_in_max:
+        if striker_make_in == striker_make_in_max and level_end_in > 600:
             striker_gen(striker_list, striker_kill_list, DISPLAYWIDTH, DISPLAYHEIGHT)
             striker_make_in = 0
 
