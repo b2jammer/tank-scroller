@@ -1,0 +1,12 @@
+Things to-be Done
+
+Collision (w/ Enemy Death)
+Player Classes (w/ Controls)
+All Mob Types Need to Have a Surface (MINSURF, STRISURF, TURSURF, ASTSURF, PLAYSURF)
+Testable Version
+Sound
+
+Testing
+Art (After Testing)
+Level End Goes to Next Level
+Striker AI
